@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using netBootcamp.TASK_3.BootcampContext;
 
@@ -11,9 +12,10 @@ using netBootcamp.TASK_3.BootcampContext;
 namespace netBootcamp.Migrations
 {
     [DbContext(typeof(BootcampContext))]
-    partial class BootcampContextModelSnapshot : ModelSnapshot
+    [Migration("20231229181532_OrderTable")]
+    partial class OrderTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,36 +97,13 @@ namespace netBootcamp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId")
-                        .IsUnique();
-
                     b.ToTable("WebUsers");
-                });
-
-            modelBuilder.Entity("netBootcamp.TASK_4.WebUser", b =>
-                {
-                    b.HasOne("netBootcamp.TASK_4.Order", "Order")
-                        .WithOne("WebUser")
-                        .HasForeignKey("netBootcamp.TASK_4.WebUser", "OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
-            modelBuilder.Entity("netBootcamp.TASK_4.Order", b =>
-                {
-                    b.Navigation("WebUser")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
